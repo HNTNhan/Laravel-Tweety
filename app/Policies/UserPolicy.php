@@ -23,4 +23,5 @@ class UserPolicy
     {
         return $currentUser->is($user);
     }
+
 }

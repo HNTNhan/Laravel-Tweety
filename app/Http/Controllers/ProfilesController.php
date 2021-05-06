@@ -10,9 +10,11 @@ class ProfilesController extends Controller
 {
     public function show(User $user)
     {
+        //ddd(request('showBanner'));
         return view('profiles.show', [
             'user' => $user,
             'tweets' => $user->tweets()->withLikes()->paginate(50),
+            'show_banner' => request('show_banner'),
         ]);
     }
 
@@ -40,6 +42,23 @@ class ProfilesController extends Controller
 
         $user->update($attributes);
 
-        return redirect($user->path());
+        return redirect($user->path())->with('message', 'Update profile success!!!');
+    }
+
+    public function update_banner(User $user)
+    {
+        //ddd(request('banner'));
+        $attributes = request()->validate([
+            'banner' => ['file', 'required'],
+        ]);
+
+        if(request('banner')) {
+            $attributes['banner'] = request('banner')->store('banner');
+        }
+
+
+        $user->update($attributes);
+
+        return redirect($user->path())->with('message', 'Update profile banner!!!');
     }
 }

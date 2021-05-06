@@ -23,7 +23,7 @@ class TweetsController extends Controller
             'body' => $attributes['body']
         ]);
 
-        return redirect()->route('home');
+        return redirect()->route('home')->with('message', 'You created a new tweet!!!');
     }
 
 }

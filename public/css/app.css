@@ -187943,3 +187943,14 @@ select {
   }
 }
 
+#message-box {
+  animation-name: message-pop-up;
+  animation-duration: 5s;
+}
+
+@keyframes message-pop-up {
+  0%   {transform: translate(0px, 100%);}
+  20%   {transform: translate(0px, -20px);}
+  80%   {transform: translate(0px, -20px);}
+  100%   {transform: translate(0px, 100%);}
+}

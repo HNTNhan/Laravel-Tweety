@@ -3,10 +3,12 @@
         @csrf
 
         <textarea
-            name="body"
-            id="body"
+            name="create-tweet"
+            id="create-tweet"
             class="w-full border-none rounded-lg"
             placeholder="What's up?"
+            rows="3"
+            maxlength="255"
             required
             autofocus
         ></textarea>
@@ -20,6 +22,12 @@
                 class="rounded-full mr-2"
                 width="40px"
             >
+
+            <div id="count" class="text-sm">
+                <span id="current_count">0</span>
+                <span id="maximum_count">/ 255</span>
+            </div>
+
             <button
                 type="submit"
                 class="bg-blue-500 rounded-lg shadow p-2 text-white text-sm hover:bg-blue-600"
@@ -33,3 +41,13 @@
         <p class="text-red-600 text-sm mt-2">{{ $message }}</p>
     @enderror
 </div>
+
+<script type="text/javascript">
+    $('#create-tweet').keyup(function() {
+        let characterCount = $(this).val().length,
+            current_count = $('#current_count'),
+            maximum_count = $('#maximum_count'),
+            count = $('#count');
+        current_count.text(characterCount);
+    });
+</script>

@@ -27,6 +27,8 @@ Route::get('/profiles/{user:username}', [ProfilesController::class, 'show'])
     ->name('profiles');
 Route::patch('/profiles/{user:username}', [ProfilesController::class, 'update'])
     ->middleware('can:edit,user');
+Route::patch('/profiles/{user:username}/banner', [ProfilesController::class, 'update_banner'])
+    ->middleware('can:edit,user');
 Route::get('/profiles/{user:username}/edit', [ProfilesController::class, 'edit'])
     ->middleware(['auth'])->middleware('can:edit,user')
     ->name('edit');

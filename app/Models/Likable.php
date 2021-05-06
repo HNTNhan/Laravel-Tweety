@@ -5,6 +5,7 @@ namespace App\Models;
 
 
 use Illuminate\Database\Eloquent\Builder;
+use phpDocumentor\Reflection\Types\Null_;
 
 trait Likable
 {
@@ -28,8 +29,10 @@ trait Likable
         $this->likes()->updateOrCreate([
             'user_id' => $user ? $user->id : auth()->id(),
         ], [
-            'liked' => $liked
+            'liked' => ($liked === true) ? ($this->isLikedBy($user) === true ? null : $liked) : ($this->isDislikedBy($user) === true ? null : $liked)
         ]);
+
+        return ($liked === true) ? ($this->isLikedBy($user) === true ? 'You liked the tweet!!!' : 'You unliked the tweet!!!') : ($this->isDislikedBy($user) === true ? "You disliked the tweet!!!" : "You undisliked the tweet!!!");
     }
 
     public function dislike($user = null)

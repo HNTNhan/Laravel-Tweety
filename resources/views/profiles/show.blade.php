@@ -1,10 +1,11 @@
 <x-app-layout>
     <header class="container mx-auto relative mb-4">
-        <div class="relative">
-            <img src="/images/default-profile-banner.jpg"
+        <div class="relative" style="height: 250px">
+            <img src="{{ $user->banner }}"
                  alt="default profile banner"
                  width="100%"
-                 class="mb-2"
+                 style="max-height: 250px; min-height: 250px"
+                 class="mb-2 overflow-hidden object-cover"
             >
 
             <img
@@ -14,6 +15,40 @@
                 style="left: 50%"
                 width="150px"
             >
+
+            @can('edit', $user)
+                @if($show_banner)
+                    <div class="absolute text-center text-black bg-gray-100 rounded-lg"
+                         style="top: 5px; right: 10px; width: 200px">
+                        <form method="POST" action="{{ $user->path() . '/banner' }}" enctype="multipart/form-data">
+                            @csrf
+                            @method('PATCH')
+
+                            <input class="p-2" style="width: 200px" aria-label="Choose file"
+                                   type="file" name="banner" id="banner" required/>
+                            @error('banner')
+                                <p class="text-red-600 text-sm mt-3">{{ $message }}</p>
+                            @enderror
+                            <div class="py-2">
+                                <button type="submit" class="px-4 py-1 hover:text-blue-700 hover:bg-blue-200 text-sm rounded-lg">
+                                    Change
+                                </button>
+                                <a class="px-4 py-1 hover:text-blue-700 hover:bg-blue-200 text-sm rounded-lg" href="{{ $user->path()}}">Cancel</a>
+                            </div>
+                        </form>
+                    </div>
+                @else
+                    <a class="absolute text-center font-bold flex text-black bg-gray-100 px-2 py-1 rounded-lg border border-gray-500"
+                       style="top: 5px; right: 10px"
+                       href="{{ $user->path() . '?show_banner=true' }}"
+                    >
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                            <path d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z" />
+                        </svg>
+                        Edit
+                    </a>
+                @endif
+            @endcan
         </div>
 
         <div class="flex justify-between items-center mb-4">

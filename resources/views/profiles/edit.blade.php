@@ -26,7 +26,7 @@
 
             <div class="flex">
                 <input class="border border-gray-500 p-2 w-full"
-                       type="file" name="avatar" id="avatar" value="{{ $user->username }}">
+                       type="file" name="avatar" id="avatar">
                 <img src="{{ $user->avatar }}" alt="user's avatar" width="50px">
             </div>
 
