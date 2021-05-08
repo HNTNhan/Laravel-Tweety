@@ -16,14 +16,20 @@ class TweetsController extends Controller
 
     public function store()
     {
-        $attributes = request()->validate(['body' => 'required|max:255']);
+        $attributes = request()->validate(['new_tweet' => 'required|max:255']);
 
         Tweet::create([
             'user_id' => auth()->id(),
-            'body' => $attributes['body']
+            'body' => $attributes['new_tweet']
         ]);
 
         return redirect()->route('home')->with('message', 'You created a new tweet!!!');
     }
 
+    public function destroy(Tweet $tweet)
+    {
+        $tweet->delete();
+
+        return back()->with('message', 'You deleted a tweet!!!');
+    }
 }

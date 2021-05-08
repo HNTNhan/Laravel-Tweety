@@ -20,4 +20,8 @@ class Tweet extends Model
         return $this->belongsTo(User::class, 'user_id');
     }
 
+//    public function delete($tweet)
+//    {
+//        $tweet->delete();
+//    }
 }

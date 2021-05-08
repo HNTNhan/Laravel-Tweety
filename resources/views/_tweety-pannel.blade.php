@@ -3,8 +3,8 @@
         @csrf
 
         <textarea
-            name="create-tweet"
-            id="create-tweet"
+            name="new_tweet"
+            id="new_tweet"
             class="w-full border-none rounded-lg"
             placeholder="What's up?"
             rows="3"
@@ -43,7 +43,7 @@
 </div>
 
 <script type="text/javascript">
-    $('#create-tweet').keyup(function() {
+    $('#new_tweet').keyup(function() {
         let characterCount = $(this).val().length,
             current_count = $('#current_count'),
             maximum_count = $('#maximum_count'),
